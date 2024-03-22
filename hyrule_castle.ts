@@ -1,5 +1,6 @@
 import { log } from "console";
 import { link, readlinkSync } from "fs";
+const c = require("ansi-colors");
 
 interface Entity {
     name : string,
@@ -36,10 +37,11 @@ var readLineSync = require ('readline-sync')
 export const getInput = (question: string) => readLineSync.question(`${question}\n`);
 
 let j
+let i
 
 
 function startFight () {
-    for (let etage = 0; etage < 10 && Player.hp > 0; etage++) {
+    for (let etage = 0; etage <= 9 && Player.hp > 0; etage++) {
         Enemy.hp = Enemy.hp_max
         console.log(`================== Fight ${etage +1}===================`)
         console.log(`A wild ${Enemy.name} appears.`);
@@ -50,7 +52,7 @@ function startFight () {
 
             if (choice == 'attack') {
                  Enemy.hp = Enemy.hp - Player.strenght
-                 console.log(`Tu lui as ingligé ${Player.strenght} à Bokoblin. Il ne lui reste que ${Enemy.hp}`)
+                 console.log(`Tu lui as ingligé ${Player.strenght} à Bokoblin.\nIl ne lui reste que ${Enemy.hp}`)
                 
             }
             else if (choice == "heal") {
@@ -61,7 +63,7 @@ function startFight () {
              
             if (Enemy.hp > 0) {
                 Player.hp = Player.hp - Enemy.strenght;
-                console.log(`Bokoblin t'as infligé ${Enemy.strenght}. Il te reste ${Player.hp}`);
+                console.log(`Bokoblin t'as infligé ${Enemy.strenght}.\nIl te reste ${Player.hp}.A`);
             }
             if (Enemy.hp <= 0) {
                 console.log('Bokoblin est mort.');
@@ -69,10 +71,10 @@ function startFight () {
             }
            
         
-            else (
+            else if (Player.hp <= 0){
                 console.log('Tu es mort, retente ta chance.');
-                 process.exit
-                )
+                process.exit
+            }
         }
           
             
@@ -81,10 +83,49 @@ function startFight () {
 }
 startFight();
 
-function finalFight(params:type) {
-    
-}
+function bossFight() {
+    console.log('Tu as vaincu mes sbires Links.\nPar conséquent tu subiras mon couroux.')
+    for (let etage = 1; etage == 1 && Player.hp > 0; etage++) {
 
+        for (i = 0; Player.hp > 0 && Boss.hp > 0; i++) {
+            console.log(`${Boss.name} HP: ${Boss.hp}/${Boss.hp_max}.`);
+            let choice = getInput('Heal ou Attack?')
+            choice = choice.toLowerCase();
+
+            if (choice == 'attack') {
+                Boss.hp = Boss.hp - Player.strenght
+                console.log(`Tu lui as ingligé ${Player.strenght} à Bokoblin.\nIl ne lui reste que ${Boss.hp}`)
+                
+            }
+            else if (choice == "heal") {
+                Player.hp = Player.hp + Player.hp / 2;
+                console.log(`Tu as maintenant ${Player.hp} vie.`);
+            }
+            
+             
+            if (Boss.hp > 0) {
+                Player.hp = Player.hp - Boss.strenght;
+                console.log(`Ganon t'as infligé ${Boss.strenght}. Il te reste ${Boss.hp}.`);
+            }
+            if (Boss.hp <= 0) {
+                console.log('Ganon est mort.');
+                console.log('Fatality')
+                console.log('Félicitation Links tu as vaincu Ganon et sauver Zelda , peut-être que pour une fois tu pourras la toucher.')
+                break;
+            }
+           
+        
+            else if (Player.hp <= 0) {
+                console.log('Tu es mort, retente ta chance.');
+                process.exit
+            }
+        }
+    }
+        }
+          
+       bossFight()     
+
+ 
  
 
 
