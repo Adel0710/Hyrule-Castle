@@ -18,7 +18,7 @@ let Player: Entity = {
 
 let Enemy: Entity = {
     name: "Bokoblin",
-    strenght: 5,
+    strenght: 500,
     hp: 30,
     hp_max: 30
 };
@@ -30,11 +30,14 @@ let Boss: Entity = {
     hp_max: 150
 };
 
-const fs = require('fs');
+const fs = require("fs");
 
-var readLineSync = require ('readline-sync')
+var readLineSync = require("readline-sync");
 
-export const getInput = (question: string) => readLineSync.question(`${question}\n`);
+export const getInput = (question: string) =>
+  readLineSync.question(`${question}\n`);
+
+
 
 let j
 let i
@@ -44,7 +47,7 @@ function startFight () {
     for (let etage = 0; etage <= 9 && Player.hp > 0; etage++) {
         Enemy.hp = Enemy.hp_max
         console.log(`================== Fight ${etage +1}===================`)
-        console.log(`A wild ${Enemy.name} appears.`);
+        console.log(`A wild ${c.red.bold(Enemy.name)} appears.`);
         for (j = 0; Player.hp > 0 && Enemy.hp > 0; j++) {
             console.log(`${Enemy.name} HP: ${Enemy.hp}/${Enemy.hp_max}.`);
             let choice = getInput('Heal ou Attack?')
@@ -65,6 +68,7 @@ function startFight () {
                 Player.hp = Player.hp - Enemy.strenght;
                 console.log(`Bokoblin t'as infligé ${Enemy.strenght}.\nIl te reste ${Player.hp}.A`);
             }
+            
             if (Enemy.hp <= 0) {
                 console.log('Bokoblin est mort.');
                 break
@@ -72,14 +76,22 @@ function startFight () {
            
         
             else if (Player.hp <= 0){
-                console.log('Tu es mort, retente ta chance.');
-                process.exit
-            }
-        }
-          
+                
+                console.log("  ________                                                  "); 
+                console.log(" /  _____/_____    _____   ____     _______  __ ___________ ");
+                console.log("/   \\  ___\\__  \\  /     \\_/ __ \\   /  _ \\  \\/ // __ \\_  __ \\");
+                console.log("\\    \_\  \/ __ \|  Y Y  \\  ___/  (  <_> )   /\\  ___/|  | \\/");
+                console.log(" \\______  (____  /__|_|  /\\___  >  \\____/ \\_/  \\___  >__|   ");  
+                console.log("        \\/     \\/      \\/     \\/                   \\/       ");  
             
-
-    }
+             return  
+            }
+        }  
+          
+          
+         
+    }  
+bossFight() 
 }
 startFight();
 
@@ -121,9 +133,9 @@ function bossFight() {
             }
         }
     }
-        }
+}
           
-       bossFight()     
+ 
 
  
  
